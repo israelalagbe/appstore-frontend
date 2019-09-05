@@ -1,4 +1,4 @@
-/* .App {
+.App {
   text-align: center;
 }
 
@@ -29,18 +29,4 @@
   to {
     transform: rotate(360deg);
   }
-}
- */
-
-.toachable-opacity{
-  transition: 0.3s opacity;
-  opacity: 1;
-  box-shadow: 1px 1px 2px silver;
-}
-.toachable-opacity:hover{
-  opacity: 0.6;
-}
-.toachable-opacity:active{
-  opacity: 0.5;
-  box-shadow: 0px 0px 0px black;
 }
