@@ -42,7 +42,7 @@ class Header extends Component {
                 <AppBar position="absolute" color="primary">
                     <Toolbar>
                         <Typography className={classes.grow} variant="h6" color="inherit">
-                            Motivation Network
+                            AppStore
           </Typography>
                         <div>
                             <IconButton

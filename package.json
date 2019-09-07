@@ -7,6 +7,8 @@
     "@material-ui/icons": "^3.0.1",
     "axios": "^0.18.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.5",
+    "clsx": "^1.0.4",
+    "material-ui-rating": "^4.2.0",
     "mobx": "^4.3.2",
     "mobx-react": "^5.2.3",
     "react": "^16.6.3",

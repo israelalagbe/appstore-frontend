@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
-import { Route, Redirect, Switch ,withRouter} from 'react-router-dom'
-import { inject,observer} from 'mobx-react';
+import { Route, Redirect, Switch, withRouter } from 'react-router-dom'
+import { inject, observer } from 'mobx-react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 /* import logo from './logo.svg'; */
 import './App.css';
@@ -9,27 +9,16 @@ import Main from './components/Main'
 import Login from './pages/Login'
 import Register from './pages/Register';
 import Home from './pages/Home';
+//import { ResponsiveDrawer } from './components/Drawer';
+import ResponsiveDrawer from './pages/ResponsiveDrawer';
 class App extends Component {
   render() {
-    const { authStore,history } = this.props;
+    const { authStore, history } = this.props;
     const authenticated = authStore.authenticated;
-    if (authenticated) {
-      return (
-        <Fragment>
-          <CssBaseline />
-          <Header />
-          <Main />
-        </Fragment>
-      );
-    }
-    else {
-      return (
-        <Fragment>
-          <CssBaseline />
-    
-          <Switch>
-            
-            {/* <Route exact path="/"  render={()=>{
+    return (<ResponsiveDrawer>
+      <Switch>
+
+        {/* <Route exact path="/"  render={()=>{
            
               
               return (<h1 onClick={()=>{
@@ -37,24 +26,22 @@ class App extends Component {
               }}>Sorry, this page does not exist</h1>);
               //return (<Redirect  to="/auth/login" />);
             }} /> */}
-            <Route exact path="/auth/login" component={Login} />
-            <Route exact path="/auth/register" component={Register} />
-            <Route exact path="/" component={Home} />
-            <Redirect to="/auth/login" /> 
-            
-            {/* <Route exact render={()=>{
+        <Route exact path="/auth/login" component={Login} />
+        <Route exact path="/auth/register" component={Register} />
+        <Route exact path="/" component={Home} />
+        <Redirect to="/auth/login" />
+
+        {/* <Route exact render={()=>{
               
               return (<h1>Sorry, this page does not exist</h1>);
             }} /> */}
-            
-          </Switch>
-        </Fragment>
-      );
-    }
 
+      </Switch>
+    </ResponsiveDrawer>);
   }
+
 }
 //
 export default withRouter(inject('authStore')(
-  observer(App )
+  observer(App)
 ));
