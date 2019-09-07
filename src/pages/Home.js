@@ -25,12 +25,12 @@ class Home extends Component {
         const { classes,authStore } = this.props;
         let cards=[1,2,3,4,5,6]
         return (
-            <main style={{ marginTop: 20 }}>
+            <main>
                 <div className={classNames(classes.layout, classes.cardGrid)}>
                     {/* End hero unit */}
                     <Grid container spacing={8}>
                       {cards.map(card => (
-                        <Grid item key={card} spacing={2} xs={12} sm={6} md={4} lg={3}>
+                        <Grid item key={card} xs={12} sm={6} md={3} lg={3}>
                             <AppItem
                                 appTitle={"Pubj Mobile"}
                                 appMaker={"Waves Developers"}
