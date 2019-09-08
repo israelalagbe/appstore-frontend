@@ -18,7 +18,10 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-
+import LockIcon from '@material-ui/icons/Lock';
+import AndroidIcon from '@material-ui/icons/Android';
+import IosIcon from '@material-ui/icons/PhoneIphone';
+import { Link } from "react-router-dom";
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -145,16 +148,32 @@ class ResponsiveDrawer extends React.Component {
           </div>
           <Divider />
           <List>
-            {['Android Apps', 'Ios Apps', 'Windows Apps', 'Login','Register'].map((text, index) => (
+            {/* ['Ios Apps', 'Windows Apps', 'Login', 'Register'].map((text, index) => (
               <ListItem button key={text}>
                 <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
                 <ListItemText primary={text} />
               </ListItem>
-            ))}
+            )) */}
+            <ListItem button key={'Android Apps'} >
+              <ListItemIcon><AndroidIcon /></ListItemIcon>
+              <ListItemText primary={"Android Apps"} />
+            </ListItem>
+            <ListItem button key={'Ios Apps'}>
+              <ListItemIcon><IosIcon /></ListItemIcon>
+              <ListItemText primary={"IOS Apps"} />
+            </ListItem>
+            <ListItem button key={'Login'} component={Link} to="/auth/login">
+              <ListItemIcon><LockIcon /></ListItemIcon>
+              <ListItemText primary={"Login"} />
+            </ListItem>
+            <ListItem button key={'Register'} component={Link} to="/auth/register">
+              <ListItemIcon><MailIcon /></ListItemIcon>
+              <ListItemText primary={"Register"} />
+            </ListItem>
           </List>
         </Drawer>
         <main className={classes.content}>
-          <div style={{marginTop: '20px'}}/>
+          <div style={{ marginTop: '20px' }} />
           {this.props.children}
         </main>
       </div>
