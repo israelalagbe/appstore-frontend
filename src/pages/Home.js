@@ -22,10 +22,15 @@ import AppItem from './AppItem';
 import appPicture from "../maxresdefault.jpg";
 import CircularProgress from '@material-ui/core/CircularProgress';
 class Home extends Component {
-    componentWillMount() {
+    async componentWillMount() {
         const { classes, authStore, appStore } = this.props;
+        try {
+            await appStore.fetchApps('android')
+        }
+        catch{
+            alert("Error occured while fetching apps ")
+        }
 
-        appStore.fetchApps('android')
     }
     render() {
         const { classes, authStore, appStore } = this.props;
@@ -48,7 +53,7 @@ class Home extends Component {
                             </Grid>
                         ))}
                     </Grid>
-                    <CircularProgress />
+                    {appStore.loading ? (<CircularProgress style={{ position: 'absolute', top: '50%', left: '50%' }} />) : null}
                 </div>
             </main>
         );

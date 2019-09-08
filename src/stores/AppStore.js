@@ -16,17 +16,27 @@ class AppStore {
         this.localStorage = localStorage
     }
     async fetchApps(appType) {
-        let result = await this.request.get(this.baseUrl + `/applications/${appType}`);
-        this.setApps(result);
+        this.setLoading(true);
+        try {
+            let result = await this.request.get(this.baseUrl + `/applications/${appType}`);
+            this.setApps(result);
+        } finally {
+            this.setLoading(false);
+        }
+
     }
     setApps(apps) {
         this.apps = [...apps];
+    }
+    setLoading(loading) {
+        this.loading = loading;
     }
 }
 
 export default decorate(AppStore, {
     apps: observable,
     loading: observable,
-    setApps: action
+    setApps: action,
+    setLoading: action
 
 });
