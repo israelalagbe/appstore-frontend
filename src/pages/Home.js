@@ -20,26 +20,35 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { inject, observer } from 'mobx-react';
 import AppItem from './AppItem';
 import appPicture from "../maxresdefault.jpg";
+import CircularProgress from '@material-ui/core/CircularProgress';
 class Home extends Component {
+    componentWillMount() {
+        const { classes, authStore, appStore } = this.props;
+
+        appStore.fetchApps('android')
+    }
     render() {
-        const { classes,authStore } = this.props;
-        let cards=[1,2,3,4,5,6]
+        const { classes, authStore, appStore } = this.props;
+
+        let cards = [1, 2, 3, 4, 5, 6];
+
         return (
             <main>
                 <div className={classNames(classes.layout, classes.cardGrid)}>
                     {/* End hero unit */}
                     <Grid container spacing={8}>
-                      {cards.map(card => (
-                        <Grid item key={card} xs={12} sm={6} md={3} lg={3}>
-                            <AppItem
-                                appTitle={"Pubj Mobile"}
-                                appMaker={"Waves Developers"}
-                                appRating={2}
-                                appImage={appPicture}
-                            />
-                        </Grid>
-                      ))}
+                        {appStore.apps.map(app => (
+                            <Grid item key={app.id} xs={12} sm={6} md={3} lg={3}>
+                                <AppItem
+                                    appTitle={app.name}
+                                    appMaker={"Waves Developers"}
+                                    appRating={app.rating}
+                                    appImage={app.image}
+                                />
+                            </Grid>
+                        ))}
                     </Grid>
+                    <CircularProgress />
                 </div>
             </main>
         );
@@ -82,10 +91,10 @@ const styles = theme => ({
         display: 'flex',
         flexDirection: 'column',
     },
-    avatar:{
-        backgroundSize:'100% 100%',
-        width:'40px',
-        height:'40px'
+    avatar: {
+        backgroundSize: '100% 100%',
+        width: '40px',
+        height: '40px'
 
     },
 
@@ -106,7 +115,7 @@ Home.propTypes = {
     authStore: PropTypes.object.isRequired
 };
 export default withStyles(styles)(
-    inject('authStore')(
+    inject('authStore', 'appStore')(
         observer(Home)
     )
 );
