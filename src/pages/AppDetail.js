@@ -26,7 +26,7 @@ import SaveIcon from '@material-ui/icons/Save';
 class AppDetail extends Component {
     async componentWillMount() {
         const { classes, authStore, appStore } = this.props;
-        const appId = this.props.match.params.appId;
+        const appId = Number(this.props.match.params.appId);
         try {
             await appStore.getApp(appId);
         }
