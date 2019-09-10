@@ -63,6 +63,7 @@ class AppDetail extends Component {
                                 <h4 style={{ margin: '5px' }}>{app.name}</h4>
                                 <p style={{ margin: '5px', color: 'gray' }}>{app.description}</p>
                                 <p style={{ margin: '5px', color: 'gray' }}>JUmanji studio</p>
+                                <p style={{ margin: '5px', color: 'black' }}>Downloads: {app.downloads}</p>
                                 <Rating
                                     value={app.rating}
                                     max={5}
