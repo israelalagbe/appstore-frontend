@@ -26,12 +26,12 @@ class AppItem extends React.Component {
 
   }
   render() {
-    const { classes, appImage, appTitle, appMaker, appRating } = this.props;
+    const { classes, appImage, appTitle, appMaker, appRating, onPress,appId } = this.props;
     return (
 
       <Card className={classes.card}>
         <CardActionArea onClick={()=>{
-          alert("Hello world")
+          onPress(appId)
         }}>
           <CardMedia
             className={classes.cardMedia}

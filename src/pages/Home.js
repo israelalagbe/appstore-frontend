@@ -33,7 +33,7 @@ class Home extends Component {
 
     }
     render() {
-        const { classes, authStore, appStore } = this.props;
+        const { classes, authStore, appStore, history } = this.props;
 
         let cards = [1, 2, 3, 4, 5, 6];
 
@@ -49,6 +49,10 @@ class Home extends Component {
                                     appMaker={"Waves Developers"}
                                     appRating={app.rating}
                                     appImage={app.image}
+                                    appId={app.id}
+                                    onPress={(appId)=>{
+                                        history.push(`apps/${appId}`)
+                                    }}
                                 />
                             </Grid>
                         ))}

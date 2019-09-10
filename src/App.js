@@ -11,6 +11,7 @@ import Register from './pages/Register';
 import Home from './pages/Home';
 //import { ResponsiveDrawer } from './components/Drawer';
 import ResponsiveDrawer from './pages/ResponsiveDrawer';
+import AppDetail from './pages/AppDetail';
 class App extends Component {
   render() {
     const { authStore, history } = this.props;
@@ -29,7 +30,8 @@ class App extends Component {
         <Route exact path="/auth/login" component={Login} />
         <Route exact path="/auth/register" component={Register} />
         <Route exact path="/" component={Home} />
-        <Redirect to="/auth/login" />
+        <Route exact path="/apps/:appId" component={AppDetail} />
+        <Redirect to="/" />
 
         {/* <Route exact render={()=>{
               

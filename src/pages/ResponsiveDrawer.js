@@ -154,11 +154,11 @@ class ResponsiveDrawer extends React.Component {
                 <ListItemText primary={text} />
               </ListItem>
             )) */}
-            <ListItem button key={'Android Apps'} >
+            <ListItem button key={'Android Apps'} component={Link} to="/">
               <ListItemIcon><AndroidIcon /></ListItemIcon>
               <ListItemText primary={"Android Apps"} />
             </ListItem>
-            <ListItem button key={'Ios Apps'}>
+            <ListItem button key={'Ios Apps'} component={Link} to="/">
               <ListItemIcon><IosIcon /></ListItemIcon>
               <ListItemText primary={"IOS Apps"} />
             </ListItem>
