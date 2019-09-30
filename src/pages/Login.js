@@ -74,7 +74,7 @@ class Login extends Component {
                 alert(e.message)
             else {
 
-                alert("Network unreachable, a unknown error occured, please check your network connecttion")
+                alert("Error occured while logging in, please check your network connecttion")
 
                 //alert("Network unreachable, please check your network connecttion")
             }

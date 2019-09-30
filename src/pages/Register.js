@@ -22,15 +22,20 @@ class Register extends Component {
     async register(e) {
         e.preventDefault()
         const { authStore } = this.props;
-        if(!authStore.imageUri){
-            alert("You must upload an image")
-            return;
-        }
+        // if(!authStore.imageUri){
+        //     alert("You must upload an image")
+        //     return;
+        // }
         try {
             await authStore.register()
             alert("Registration complete")
-        } catch (error) {
-            alert("Error register")
+        } catch (e) {
+            if (e && e.message)
+                alert(e.message)
+            else {
+                alert("Error occured while registering, please check your network connecttion")
+                //alert("Network unreachable, please check your network connecttion")
+            }
         }
         
     }
@@ -61,10 +66,10 @@ class Register extends Component {
                     <form onSubmit={this.register.bind(this)} className={classes.form}>
                         <Grid container spacing={24}>
 
-                            <FormControl  onClick={this.pickImage.bind(this)} margin="normal" required style={{display:'flex',margin:'auto',marginTop:'10px',borderRadius:'10px'}}>
+                            {/* <FormControl  onClick={this.pickImage.bind(this)} margin="normal" required style={{display:'flex',margin:'auto',marginTop:'10px',borderRadius:'10px'}}>
                                 <LazyImage src={this.state.base64} placeholder='images/avatar.jpg' style={{borderRadius:'5px',width:'88px',height:'88px'}} className='toachable-opacity' />
                                 <input accept="image/*" onChange={this.preview.bind(this)} ref={(ref)=>{this.ref=ref;}} type="file" style={{display: 'none'}} name="image" />
-                            </FormControl>
+                            </FormControl> */}
 
                             <Grid item xs={12} sm={12}>
                                 <TextField
@@ -91,20 +96,6 @@ class Register extends Component {
                                     label="Email"
                                     fullWidth
                                     autoComplete="email"
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                                <TextField
-                                    onChange={(e) => {
-                                        authStore.setUsername(e.target.value)
-                                    }}
-                                    value={authStore.username}
-                                    type='text'
-                                    required
-                                    name="username"
-                                    label="Username"
-                                    fullWidth
-                                    autoComplete="username"
                                 />
                             </Grid>
                             <Grid item xs={12} sm={12}>

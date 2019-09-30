@@ -165,8 +165,8 @@ class AuthStore{
     async login(){
         this.setLoading(true)
         console.log("Logging in to it")
-        return this.request.post(this.baseUrl+"/users/login",{
-            username:this.username,
+        return this.request.post(this.baseUrl+"/auth/login",{
+            email:this.username,
             password:this.password
         }).then(this.handleAuthenticated.bind(this)).catch(this.handleResponse);
         
@@ -184,21 +184,13 @@ class AuthStore{
     }
     async register(){
         this.setLoading(true)
-        try{
-            await this.uploadProfilePicture()
-        }
-        catch(e){
-            this.setLoading(false)
-            console.warn(e)
-            return Promise.reject("Error uploading profile image")
-        }
-        let result=await this.request.post(this.baseUrl+"/users/register",{
+        let result=await this.request.post(this.baseUrl+"/auth/register",{
             "name":this.name,
             "email":this.email,
-            "username":this.username,
+            // "username":this.username,
             "password":this.password,
-            "image":this.image,
-            "thumb":this.thumb
+            // "image":this.image,
+            // "thumb":this.thumb
             /* "address":this.address,
             "phone_number":this.phoneNumber,
             "image":this.image,
