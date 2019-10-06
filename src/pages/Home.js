@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import CameraIcon from '@material-ui/icons/PhotoCamera';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -21,6 +22,8 @@ import { inject, observer } from 'mobx-react';
 import AppItem from './AppItem';
 import appPicture from "../maxresdefault.jpg";
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Fab from '@material-ui/core/Fab';
+
 class Home extends Component {
     async componentWillMount() {
         const { classes, authStore, appStore } = this.props;
@@ -35,11 +38,22 @@ class Home extends Component {
     render() {
         const { classes, authStore, appStore, history } = this.props;
 
-        let cards = [1, 2, 3, 4, 5, 6];
-
         return (
             <main>
+
                 <div className={classNames(classes.layout, classes.cardGrid)}>
+                    <Fab
+                        style={{ visibility: authStore.authenticated ? 'visible' : 'hidden' }}
+                        onClick={(appId) => {
+                            history.push(`upload`)
+                        }}
+                        variant="extended" aria-label="delete" className={classes.fab}
+                    >
+                        <CloudUploadIcon className={classes.extendedIcon} />
+                        Upload New App
+                    </Fab>
+                    <h1 style={{ color: '#333', display: authStore.authenticated ? 'block' : 'none'  }}>My Apps</h1>
+
                     {/* End hero unit */}
                     <Grid container spacing={8}>
                         {appStore.apps.map(app => (
@@ -50,7 +64,7 @@ class Home extends Component {
                                     appRating={app.rating}
                                     appImage={app.image}
                                     appId={app.id}
-                                    onPress={(appId)=>{
+                                    onPress={(appId) => {
                                         history.push(`apps/${appId}`)
                                     }}
                                 />
@@ -65,6 +79,12 @@ class Home extends Component {
 }
 
 const styles = theme => ({
+    fab: {
+        margin: theme.spacing.unit * 1,
+    },
+    extendedIcon: {
+        marginRight: theme.spacing.unit * 1,
+    },
     appBar: {
         position: 'relative',
     },

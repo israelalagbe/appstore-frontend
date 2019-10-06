@@ -12,6 +12,7 @@ import Home from './pages/Home';
 //import { ResponsiveDrawer } from './components/Drawer';
 import ResponsiveDrawer from './pages/ResponsiveDrawer';
 import AppDetail from './pages/AppDetail';
+import UploadApp from './pages/UploadApp';
 class App extends Component {
   render() {
     const { authStore, history } = this.props;
@@ -20,6 +21,7 @@ class App extends Component {
       return (<ResponsiveDrawer>
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route exact path="/upload" component={UploadApp} />
           <Redirect to="/" />
         </Switch>
       </ResponsiveDrawer>);

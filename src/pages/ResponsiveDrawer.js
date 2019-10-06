@@ -16,7 +16,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
+import CloudUpload from '@material-ui/icons/CloudUpload';
 import MailIcon from '@material-ui/icons/Mail';
 import LockIcon from '@material-ui/icons/Lock';
 import Power from '@material-ui/icons/SettingsPowerOutlined';
@@ -176,10 +176,17 @@ class ResponsiveDrawer extends React.Component {
             </ListItem>
           </List>
           <List style={{ display: authStore.authenticated ? 'block' : 'none' }}>
-            <ListItem button key={'Logout'} component={Link} to="/auth/login">
+            <ListItem button key={'Upload App'} component={Link} to="/upload">
+              <ListItemIcon><CloudUpload /></ListItemIcon>
+              <ListItemText primary={"Upload App"} />
+            </ListItem>
+            <ListItem button key={'Logout'} onClick={() => {
+              authStore.logout();
+            }}>
               <ListItemIcon><Power /></ListItemIcon>
               <ListItemText primary={"Logout"} />
             </ListItem>
+            
 
           </List>
         </Drawer>
