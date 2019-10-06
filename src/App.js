@@ -16,6 +16,15 @@ class App extends Component {
   render() {
     const { authStore, history } = this.props;
     const authenticated = authStore.authenticated;
+    if (authenticated) {
+      return (<ResponsiveDrawer>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Redirect to="/" />
+        </Switch>
+      </ResponsiveDrawer>);
+
+    }
     return (<ResponsiveDrawer>
       <Switch>
 

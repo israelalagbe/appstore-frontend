@@ -19,9 +19,13 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import LockIcon from '@material-ui/icons/Lock';
+import Power from '@material-ui/icons/SettingsPowerOutlined';
 import AndroidIcon from '@material-ui/icons/Android';
 import IosIcon from '@material-ui/icons/PhoneIphone';
 import { Link } from "react-router-dom";
+import { inject, observer } from 'mobx-react';
+
+
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -100,7 +104,7 @@ class ResponsiveDrawer extends React.Component {
   };
 
   render() {
-    const { classes, theme } = this.props;
+    const { classes, theme, authStore } = this.props;
 
     return (
       <div className={classes.root}>
@@ -147,7 +151,7 @@ class ResponsiveDrawer extends React.Component {
             </IconButton>
           </div>
           <Divider />
-          <List>
+          <List style={{ display: authStore.authenticated ? 'none' : 'block' }}>
             {/* ['Ios Apps', 'Windows Apps', 'Login', 'Register'].map((text, index) => (
               <ListItem button key={text}>
                 <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
@@ -171,6 +175,13 @@ class ResponsiveDrawer extends React.Component {
               <ListItemText primary={"Register"} />
             </ListItem>
           </List>
+          <List style={{ display: authStore.authenticated ? 'block' : 'none' }}>
+            <ListItem button key={'Logout'} component={Link} to="/auth/login">
+              <ListItemIcon><Power /></ListItemIcon>
+              <ListItemText primary={"Logout"} />
+            </ListItem>
+
+          </List>
         </Drawer>
         <main className={classes.content}>
           <div style={{ marginTop: '20px' }} />
@@ -186,4 +197,6 @@ ResponsiveDrawer.propTypes = {
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(ResponsiveDrawer);
+export default withStyles(styles, { withTheme: true })(inject('authStore', 'appStore')(
+  observer(ResponsiveDrawer)
+));

@@ -35,6 +35,7 @@ class AuthStore{
             if(user){
                 this.setAuthenticated(true);
                 this.setUser(user)
+                console.log(user)
             }
         })
      
