@@ -16,67 +16,64 @@ import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import FormControl from '@material-ui/core/FormControl';
 import LazyImage from '../components/LazyImage'
-import Base64Helper  from '../utils/Base64Helper';
-class Register extends Component {
-    state={base64:null}
-    async register(e) {
+import Base64Helper from '../utils/Base64Helper';
+import { Input } from '@material-ui/core';
+class UploadApp extends Component {
+    state = { base64: null }
+    async save(e) {
         e.preventDefault()
-        const { authStore } = this.props;
-        // if(!authStore.imageUri){
-        //     alert("You must upload an image")
-        //     return;
-        // }
+        const { appStore } = this.props;
         try {
-            await authStore.register()
-            alert("Registration complete")
+            await appStore.saveApp()
+            alert("Upload completed!");
         } catch (e) {
             if (e && e.message)
                 alert(e.message)
             else {
-                alert("Error occured while registering, please check your network connecttion")
-                //alert("Network unreachable, please check your network connecttion")
+                alert("Error occured while uploading app, please check your network connecttion");
             }
         }
-        
+
     }
-    async preview(e){
-        const { authStore } = this.props;
-        let file=e.target.files.item(0)
-        let base64=await Base64Helper.readBase64(file)
-        this.setState({base64})
-        authStore.setImageUri(file)
+    async preview(e) {
+        const { appStore } = this.props;
+        let file = e.target.files.item(0)
+        let base64 = await Base64Helper.readBase64(file)
+        this.setState({ base64 })
+        appStore.setImageUri(file)
     }
-    pickImage(){
+
+    pickImage() {
         this.ref.click()
     }
     render() {
-        const { classes, authStore } = this.props;
+        const { classes, appStore } = this.props;
         return (
-            <main className={classes.layout} style={{marginTop:100}}>
+            <main className={classes.layout} style={{ marginTop: 100 }}>
                 <Paper className={classes.paper}>
-                    <Avatar className={classes.avatar}>
+                    {/* <Avatar className={classes.avatar}>
                         <LockIcon />
-                    </Avatar>
+                    </Avatar> */}
                     <Typography style={{ display: 'inline-block' }} component="h1" variant="h5">
-                        Register
+                        Upload Application
                     </Typography>
                     <Typography variant="h6" gutterBottom>
-                        Fill in your details to register
+                        Fill in the details of your app
                     </Typography>
-                    <form onSubmit={this.register.bind(this)} className={classes.form}>
+                    <form onSubmit={this.save.bind(this)} className={classes.form}>
                         <Grid container spacing={24}>
 
-                            {/* <FormControl  onClick={this.pickImage.bind(this)} margin="normal" required style={{display:'flex',margin:'auto',marginTop:'10px',borderRadius:'10px'}}>
-                                <LazyImage src={this.state.base64} placeholder='images/avatar.jpg' style={{borderRadius:'5px',width:'88px',height:'88px'}} className='toachable-opacity' />
-                                <input accept="image/*" onChange={this.preview.bind(this)} ref={(ref)=>{this.ref=ref;}} type="file" style={{display: 'none'}} name="image" />
-                            </FormControl> */}
+                            {<FormControl onClick={this.pickImage.bind(this)} margin="normal" required style={{ display: 'flex', margin: 'auto', marginTop: '10px', borderRadius: '10px' }}>
+                                <LazyImage src={this.state.base64} placeholder='images/weebly_image_sample.png' style={{ borderRadius: '5px', width: '100%', height: '300px' }} className='toachable-opacity' />
+                                <input accept="image/*" onChange={this.preview.bind(this)} ref={(ref) => { this.ref = ref; }} type="file" style={{ display: 'none' }} name="image" />
+                            </FormControl>}
 
                             <Grid item xs={12} sm={12}>
                                 <TextField
                                     onChange={(e) => {
-                                        authStore.setName(e.target.value)
+                                        appStore.setAppName(e.target.value)
                                     }}
-                                    value={authStore.name}
+                                    value={appStore.appName}
                                     required
                                     name="fullname"
                                     label="Full Name"
@@ -87,58 +84,77 @@ class Register extends Component {
                             <Grid item xs={12} sm={12}>
                                 <TextField
                                     onChange={(e) => {
-                                        authStore.setEmail(e.target.value)
+                                        appStore.setAppDescription(e.target.value)
                                     }}
-                                    value={authStore.email}
-                                    type='email'
+                                    multiline
+                                    rows="4"
+                                    value={appStore.appDescription}
                                     required
-                                    name="email"
-                                    label="Email"
-                                    fullWidth
-                                    autoComplete="email"
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={12}>
-                                <TextField
-                                    onChange={(e) => {
-                                        authStore.setPassword(e.target.value)
-                                    }}
-                                    value={authStore.password}
-                                    type='password'
-                                    required
-                                    name="password"
-                                    label="Password"
+                                    name="description"
+                                    label="App Description"
                                     fullWidth
                                 />
                             </Grid>
                             <Grid item xs={12} sm={12}>
                                 <TextField
+                                    id="outlined-select-currency-native"
+                                    select
+                                    label="Device Type"
+                                    style={{ width: '100%' }}
+                                    value={appStore.deviceType}
+                                    onChange={(event) => {
+                                        appStore.setDeviceType(event.target.value)
+                                    }}
+                                    SelectProps={{
+                                        native: true,
+                                    }}
+                                    helperText="Please select your target device"
+                                    margin="normal"
+                                    variant="outlined"
+                                >
 
-                                    onChange={(e) => {
-                                        authStore.setConfirmPassword(e.target.value)
-                                    }}
-                                    error={authStore.confirm_password !== authStore.password}
-                                    helperText={authStore.confirm_password !== authStore.password ? "Password does not match!" : null}
-                                    value={authStore.confirm_password}
-                                    type='password'
-                                    required
-                                    name="confirm_password"
-                                    label="Confirm Password"
-                                    fullWidth
-                                />
+                                    <option key={'android'} value={'android'}>
+                                        Android
+                                    </option>
+                                    <option key={'ios'} value={'ios'}>
+                                        iPhone
+                                    </option>
+                                    <option key={'windows'} value={'windows'}>
+                                        Windows
+                                    </option>
+                                </TextField>
                             </Grid>
+
+                            <Grid item xs={12} sm={12}>
+                                <input accept=".apk" onChange={(e)=>{
+                                    let file = e.target.files.item(0)
+                                    appStore.setFile(file);
+                                }} ref={(ref) => { this.fileRef = ref; }} type="file" style={{ display: 'none' }} name="file" />
+                                <FormControl margin="normal" required fullWidth>
+                                    <Button
+                                        
+                                        type="button"
+                                        fullWidth
+                                        variant="contained"
+                                        onClick={() => {
+                                            this.fileRef.click();
+                                        }}
+                                    >Pick App</Button>
+                                </FormControl>
+                            </Grid>
+
                         </Grid>
                         <Grid item xs={12} sm={12}>
                             <FormControl margin="normal" required fullWidth>
                                 <Button
-                                    disabled={authStore.loading || authStore.detailsValid}
+                                    disabled={appStore.loading || appStore.detailsValid}
                                     type="submit"
                                     fullWidth
                                     variant="contained"
                                     color="primary"
                                     className={classes.submit}
-                                    onClick={this.register.bind(this)}
-                                >Register {authStore.loading && <CircularProgress size={24} className={classes.buttonProgress} />}</Button>
+                                    onClick={this.save.bind(this)}
+                                >Register {appStore.loading && <CircularProgress size={24} className={classes.buttonProgress} />}</Button>
                             </FormControl>
                         </Grid>
                     </form>
@@ -147,9 +163,9 @@ class Register extends Component {
         );
     }
 }
-Register.propTypes = {
+UploadApp.propTypes = {
     classes: PropTypes.object.isRequired,
-    authStore: PropTypes.object.isRequired
+    appStore: PropTypes.object.isRequired
 };
 const styles = theme => ({
     appBar: {
@@ -209,7 +225,7 @@ const styles = theme => ({
     },
 });
 export default withStyles(styles)(
-    inject('authStore')(
-        observer(Register)
+    inject('appStore', 'appStore')(
+        observer(UploadApp)
     )
 );
