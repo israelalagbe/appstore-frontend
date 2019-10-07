@@ -33,8 +33,8 @@ class AuthStore{
         })
         this.localStorage.get('user').then((user)=>{
             if(user){
+                this.setUser(user);
                 this.setAuthenticated(true);
-                this.setUser(user)
                 console.log(user)
             }
         })

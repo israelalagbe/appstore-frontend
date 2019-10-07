@@ -22,10 +22,12 @@ class UploadApp extends Component {
     state = { base64: null }
     async save(e) {
         e.preventDefault()
-        const { appStore } = this.props;
+        const { appStore, history, authStore } = this.props;
         try {
             await appStore.saveApp()
             alert("Application upload completed!");
+            await appStore.fetchAppsByDeveloperId(authStore.user.id);
+            history.push("/");
         } catch (e) {
             if (e && e.message)
                 alert(e.message)
@@ -47,7 +49,7 @@ class UploadApp extends Component {
         this.ref.click()
     }
     render() {
-        const { classes, appStore } = this.props;
+        const { classes, appStore, history } = this.props;
         return (
             <main className={classes.layout} style={{ marginTop: 100 }}>
                 <Paper className={classes.paper}>
@@ -126,13 +128,13 @@ class UploadApp extends Component {
                             </Grid>
 
                             <Grid item xs={12} sm={12}>
-                                <input accept=".apk" onChange={(e)=>{
+                                <input accept=".apk" onChange={(e) => {
                                     let file = e.target.files.item(0)
                                     appStore.setFile(file);
                                 }} ref={(ref) => { this.fileRef = ref; }} type="file" style={{ display: 'none' }} name="file" />
                                 <FormControl margin="normal" required fullWidth>
                                     <Button
-                                        
+
                                         type="button"
                                         fullWidth
                                         variant="contained"
@@ -225,7 +227,7 @@ const styles = theme => ({
     },
 });
 export default withStyles(styles)(
-    inject('appStore', 'appStore')(
+    inject('appStore', 'authStore')(
         observer(UploadApp)
     )
 );

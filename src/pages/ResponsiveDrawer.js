@@ -170,10 +170,10 @@ class ResponsiveDrawer extends React.Component {
               <ListItemIcon><LockIcon /></ListItemIcon>
               <ListItemText primary={"Login"} />
             </ListItem>
-            <ListItem button key={'Register'} component={Link} to="/auth/register">
+            {/* <ListItem button key={'Register'} component={Link} to="/auth/register">
               <ListItemIcon><MailIcon /></ListItemIcon>
               <ListItemText primary={"Register"} />
-            </ListItem>
+            </ListItem> */}
           </List>
           <List style={{ display: authStore.authenticated ? 'block' : 'none' }}>
             <ListItem button key={'Upload App'} component={Link} to="/upload">
