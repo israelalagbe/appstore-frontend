@@ -90,18 +90,19 @@ class AppStore {
             return Promise.reject(e);
     }
     async saveApp() {
+        
         if (!this.appName || !this.appDescription || !this.deviceType || !this.image || !this.file) {
             throw new Error("All inputs are required");
         }
         let image = await this.request.uploadFile(`${this.baseUrl}/files`, 'file', this.image);
         let file = await this.request.uploadFile(`${this.baseUrl}/files`, 'file', this.file);
-        return await this.request.post(this.baseUrl + "/applications", {
+        let res = await this.request.post(this.baseUrl + "/applications", {
             name: this.appName,
             description: this.appDescription,
             url: file.url,
             device_type: this.deviceType,
             image: image.url
-        }).catch(this.handleResponse);
+        }).catch(this.handleResponse.bind(this));
     }
     clearInputs() {
         this.setAppName('');
