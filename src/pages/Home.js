@@ -82,6 +82,7 @@ class Home extends Component {
                                 />
                             </Grid>
                         ))}
+                        {appStore.apps.length == 0 ? <h3 style={{ textAlign: 'center', margin: 'auto', 'display': 'block' }}>No apps to display!</h3> : ""}
                     </Grid>
                     {appStore.loading ? (<CircularProgress style={{ position: 'absolute', top: '50%', left: '50%' }} />) : null}
                 </div>
