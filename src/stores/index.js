@@ -18,7 +18,7 @@ const baseUrl = "http://127.0.0.1:8000/api";
 let request = new Request(axios);
 let storage = new LocalStorage(localStorage);
 let authStore = new AuthStore(request, storage, baseUrl)
-let appStore = new AppStore(request, storage, baseUrl);
+let appStore = new AppStore(request, storage, baseUrl, authStore);
 
 
 

@@ -1,6 +1,6 @@
 import { observable, autorun, action, computed, decorate } from 'mobx';
-import Request from './Request'
-import LocalStorage from './LocalStorage'
+import Request from './Request';
+import LocalStorage from './LocalStorage';
 class AppStore {
     apps = [];
     app = null;
@@ -17,10 +17,11 @@ class AppStore {
      * @param {LocalStorage} localStorage 
      * @param {string} baseUrl
      */
-    constructor(request, localStorage, baseUrl) {
+    constructor(request, localStorage, baseUrl, authStore) {
         this.request = request;
         this.baseUrl = baseUrl
-        this.localStorage = localStorage
+        this.localStorage = localStorage;
+        this.authStore = authStore;
     }
     async fetchApps(appType) {
         this.setLoading(true);
@@ -90,18 +91,21 @@ class AppStore {
             return Promise.reject(e);
     }
     async saveApp() {
-        
+
         if (!this.appName || !this.appDescription || !this.deviceType || !this.image || !this.file) {
             throw new Error("All inputs are required");
         }
         let image = await this.request.uploadFile(`${this.baseUrl}/files`, 'file', this.image);
         let file = await this.request.uploadFile(`${this.baseUrl}/files`, 'file', this.file);
+        let token = await this.localStorage.getRaw('token');
         let res = await this.request.post(this.baseUrl + "/applications", {
             name: this.appName,
             description: this.appDescription,
             url: file.url,
             device_type: this.deviceType,
             image: image.url
+        }, {
+            headers: { token: token }
         }).catch(this.handleResponse.bind(this));
     }
     clearInputs() {

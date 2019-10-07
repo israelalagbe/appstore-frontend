@@ -19,7 +19,7 @@ import { reaction } from 'mobx';
 class Home extends Component {
     async componentWillMount() {
         const { classes, authStore, appStore } = this.props;
-
+        this.fetchApps();
         const disposer = reaction(() => authStore.authenticated, (change) => {
             console.clear();
             console.warn("Authenticated", authStore.authenticated);
