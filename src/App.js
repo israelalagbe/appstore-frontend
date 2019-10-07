@@ -23,6 +23,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/upload" component={UploadApp} />
+          <Route exact path="/apps/:appId" component={AppDetail} />
           <Redirect to="/" />
         </Switch>
       </ResponsiveDrawer>);
