@@ -80,13 +80,35 @@ class AppStore {
     setFile(file) {
         this.file = file;
     }
+    handleResponse(e) {
+        this.setLoading(false)
+        if (e && e.data && e.data.message)
+            return Promise.reject(new Error(e.data.message))
+        else if (e.message)
+            return Promise.reject(e);
+        else
+            return Promise.reject(e);
+    }
     async saveApp() {
         if (!this.appName || !this.appDescription || !this.deviceType || !this.image || !this.file) {
             throw new Error("All inputs are required");
         }
         let image = await this.request.uploadFile(`${this.baseUrl}/files`, 'file', this.image);
         let file = await this.request.uploadFile(`${this.baseUrl}/files`, 'file', this.file);
-        console.log(image, file);
+        return await this.request.post(this.baseUrl + "/applications", {
+            name: this.appName,
+            description: this.appDescription,
+            url: file.url,
+            device_type: this.deviceType,
+            image: image.url
+        }).catch(this.handleResponse);
+    }
+    clearInputs() {
+        this.setAppName('');
+        this.setAppDescription('');
+        this.setFile(null);
+        this.setDeviceType('android');
+        this.setImageUri(null);
     }
 }
 

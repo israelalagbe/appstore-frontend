@@ -25,7 +25,7 @@ class UploadApp extends Component {
         const { appStore } = this.props;
         try {
             await appStore.saveApp()
-            alert("Upload completed!");
+            alert("Application upload completed!");
         } catch (e) {
             if (e && e.message)
                 alert(e.message)
@@ -75,10 +75,10 @@ class UploadApp extends Component {
                                     }}
                                     value={appStore.appName}
                                     required
-                                    name="fullname"
-                                    label="Full Name"
+                                    name="name"
+                                    label="App Name"
                                     fullWidth
-                                    autoComplete="fullname"
+                                    autoComplete="name"
                                 />
                             </Grid>
                             <Grid item xs={12} sm={12}>
