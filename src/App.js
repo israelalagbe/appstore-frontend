@@ -42,6 +42,7 @@ class App extends Component {
         <Route exact path="/auth/login" component={Login} />
         <Route exact path="/auth/register" component={Register} />
         <Route exact path="/" component={Home} />
+        <Route exact path="/devices/:deviceType/apps" component={Home} />
         <Route exact path="/apps/:appId" component={AppDetail} />
         <Redirect to="/" />
 
