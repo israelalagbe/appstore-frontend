@@ -71,7 +71,7 @@ class AppDetail extends Component {
                                     style={{ marginTop: '10px' }}
                                 />
                                 <Button size="large" variant="contained" color="primary" className={classes.button} onClick={()=>{
-                                    window.location = "http://127.0.0.1:8000/download/"+app.id;
+                                    window.location = "http://appstore.successfarm.com.ng/download/"+app.id;
                                 }}>
                                     <SaveIcon className={classes.leftIcon}></SaveIcon>
                                     Download

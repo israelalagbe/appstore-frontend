@@ -95,18 +95,23 @@ class AppStore {
         if (!this.appName || !this.appDescription || !this.deviceType || !this.image || !this.file) {
             throw new Error("All inputs are required");
         }
-        let image = await this.request.uploadFile(`${this.baseUrl}/files`, 'file', this.image);
-        let file = await this.request.uploadFile(`${this.baseUrl}/files`, 'file', this.file);
-        let token = await this.localStorage.getRaw('token');
-        let res = await this.request.post(this.baseUrl + "/applications", {
-            name: this.appName,
-            description: this.appDescription,
-            url: file.url,
-            device_type: this.deviceType,
-            image: image.url
-        }, {
-            headers: { token: token }
-        }).catch(this.handleResponse.bind(this));
+        this.setLoading(true);
+        try {
+            let image = await this.request.uploadFile(`${this.baseUrl}/files`, 'file', this.image);
+            let file = await this.request.uploadFile(`${this.baseUrl}/files`, 'file', this.file);
+            let token = await this.localStorage.getRaw('token');
+            let res = await this.request.post(this.baseUrl + "/applications", {
+                name: this.appName,
+                description: this.appDescription,
+                url: file.url,
+                device_type: this.deviceType,
+                image: image.url
+            }, {
+                headers: { token: token }
+            }).catch(this.handleResponse.bind(this));
+        } finally {
+            this.setLoading(false);
+        }
     }
     clearInputs() {
         this.setAppName('');

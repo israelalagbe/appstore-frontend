@@ -72,7 +72,7 @@ class Home extends Component {
                             <Grid item key={app.id} xs={12} sm={6} md={3} lg={3}>
                                 <AppItem
                                     appTitle={app.name}
-                                    appMaker={"Waves Developers"}
+                                    appMaker={app.developer.name}
                                     appRating={app.rating}
                                     appImage={app.image}
                                     appId={app.id}

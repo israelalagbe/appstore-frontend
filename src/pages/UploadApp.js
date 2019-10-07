@@ -128,7 +128,7 @@ class UploadApp extends Component {
                             </Grid>
 
                             <Grid item xs={12} sm={12}>
-                                <input accept=".apk" onChange={(e) => {
+                                <input accept=".apk,.exe,.ipa" onChange={(e) => {
                                     let file = e.target.files.item(0)
                                     appStore.setFile(file);
                                 }} ref={(ref) => { this.fileRef = ref; }} type="file" style={{ display: 'none' }} name="file" />
@@ -141,7 +141,7 @@ class UploadApp extends Component {
                                         onClick={() => {
                                             this.fileRef.click();
                                         }}
-                                    >Pick App</Button>
+                                    >Pick App (apk,exe e.t.c)</Button>
                                 </FormControl>
                             </Grid>
 
@@ -156,7 +156,7 @@ class UploadApp extends Component {
                                     color="primary"
                                     className={classes.submit}
                                     onClick={this.save.bind(this)}
-                                >Register {appStore.loading && <CircularProgress size={24} className={classes.buttonProgress} />}</Button>
+                                >Submit App {appStore.loading && <CircularProgress size={24} className={classes.buttonProgress} />}</Button>
                             </FormControl>
                         </Grid>
                     </form>
