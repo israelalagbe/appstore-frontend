@@ -48,6 +48,19 @@ class Home extends Component {
             alert("Error occured while fetching apps ")
         }
     }
+    async deleteApp(id) {
+        const { classes, authStore, appStore } = this.props;
+
+        try {
+            if (authStore.authenticated) {
+                await appStore.deleteApp(id);
+            }
+        }
+        catch (e) {
+            console.error("Fetching error: ", e);
+            alert("Error occured while deleting app ")
+        }
+    }
     render() {
         const { classes, authStore, appStore, history } = this.props;
 
@@ -82,7 +95,7 @@ class Home extends Component {
                                         history.push(`apps/${appId}`)
                                     }}
                                     onDelete={(id) => {
-                                        alert("Delete: " + id);
+                                        this.deleteApp(id)
                                     }}
                                 />
                             </Grid>

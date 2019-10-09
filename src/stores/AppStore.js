@@ -113,6 +113,20 @@ class AppStore {
             this.setLoading(false);
         }
     }
+    async deleteApp(id) {
+
+        this.setLoading(true);
+        try {
+            let token = await this.localStorage.getRaw('token');
+            let res = await this.request.delete(this.baseUrl + "/applications/" + id, {
+                headers: { token: token }
+            }).catch(this.handleResponse.bind(this));
+            this.setApps(this.apps.filter((app) => app.id !== id));
+            return res;
+        } finally {
+            this.setLoading(false);
+        }
+    }
     clearInputs() {
         this.setAppName('');
         this.setAppDescription('');

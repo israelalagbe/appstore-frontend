@@ -47,7 +47,7 @@ class AppItem extends React.Component {
               readOnly
             />
             <br />
-            {authenticated ? <Button style={{ color: 'red' }} onPress={() => onDelete(appId)} >Delete</Button> : null}
+            {authenticated ? <Button style={{ color: 'red' }} onClick={(e) => { e.stopPropagation(); onDelete(appId) }} >Delete</Button> : null}
           </CardContent>
         </CardActionArea>
       </Card>
