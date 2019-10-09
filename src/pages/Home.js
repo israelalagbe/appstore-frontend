@@ -38,10 +38,10 @@ class Home extends Component {
                 await appStore.fetchAppsByDeveloperId(authStore.user.id);
             }
             else {
-                await appStore.fetchApps('android');
+                console.log(this.props.match.params)
+                let type = this.props.match.params.type || 'android';
+                await appStore.fetchApps(type);
             }
-
-
         }
         catch (e) {
             console.error("Fetching error: ", e);
@@ -100,7 +100,7 @@ class Home extends Component {
                                 />
                             </Grid>
                         ))}
-                        {appStore.apps.length == 0 ? <h3 style={{ textAlign: 'center', margin: 'auto', 'display': 'block' }}>No apps to display!</h3> : ""}
+                        {appStore.apps.length === 0 ? <h3 style={{ textAlign: 'center', margin: 'auto', 'display': 'block' }}>No apps to display!</h3> : ""}
                     </Grid>
                     {appStore.loading ? (<CircularProgress style={{ position: 'absolute', top: '50%', left: '50%' }} />) : null}
                 </div>

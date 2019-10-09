@@ -13,6 +13,21 @@ import Home from './pages/Home';
 import ResponsiveDrawer from './pages/ResponsiveDrawer';
 import AppDetail from './pages/AppDetail';
 import UploadApp from './pages/UploadApp';
+
+const RemountingRoute = (props) => {
+  const { component, ...other } = props
+  const Component = component
+  return (
+    <Route {...other} render={p => <Component key={p.location.pathname + p.location.search}
+      history={p.history}
+      location={p.location}
+      match={p.match} />}
+    />)
+}
+
+// RemountingRoute.propsType = {
+//   component: PropTypes.object.isRequired
+// }
 class App extends Component {
   render() {
     const { authStore, history } = this.props;
@@ -21,9 +36,9 @@ class App extends Component {
     if (authenticated) {
       return (<ResponsiveDrawer>
         <Switch>
-          <Route exact path="/" component={Home} />
+          <RemountingRoute exact path="/" component={Home} />
           <Route exact path="/upload" component={UploadApp} />
-          <Route exact path="/apps/:appId" component={AppDetail} />
+          <RemountingRoute exact path="/apps/:appId" component={AppDetail} />
           <Redirect to="/" />
         </Switch>
       </ResponsiveDrawer>);
@@ -42,9 +57,9 @@ class App extends Component {
             }} /> */}
         <Route exact path="/auth/login" component={Login} />
         <Route exact path="/auth/register" component={Register} />
-        <Route exact path="/" component={Home} />
-        <Route exact path="/devices/:deviceType/apps" component={Home} />
-        <Route exact path="/apps/:appId" component={AppDetail} />
+        <RemountingRoute exact path="/" component={Home} />
+        <RemountingRoute exact path="/devices/:type/apps" component={Home} />
+        <RemountingRoute exact path="/apps/:appId" component={AppDetail} />
         <Redirect to="/" />
 
         {/* <Route exact render={()=>{

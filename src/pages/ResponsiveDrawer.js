@@ -21,6 +21,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import LockIcon from '@material-ui/icons/Lock';
 import Power from '@material-ui/icons/SettingsPowerOutlined';
 import AndroidIcon from '@material-ui/icons/Android';
+import LaptopWindowsIcon from '@material-ui/icons/LaptopWindows';
 import IosIcon from '@material-ui/icons/PhoneIphone';
 import { Link } from "react-router-dom";
 import { inject, observer } from 'mobx-react';
@@ -162,9 +163,13 @@ class ResponsiveDrawer extends React.Component {
               <ListItemIcon><AndroidIcon /></ListItemIcon>
               <ListItemText primary={"Android Apps"} />
             </ListItem>
-            <ListItem button key={'Ios Apps'} component={Link} to="/">
+            <ListItem button key={'Ios Apps'} component={Link} to="/devices/ios/apps">
               <ListItemIcon><IosIcon /></ListItemIcon>
               <ListItemText primary={"IOS Apps"} />
+            </ListItem>
+            <ListItem button key={'Desktop Apps'} component={Link} to="/devices/windows/apps">
+              <ListItemIcon><LaptopWindowsIcon /></ListItemIcon>
+              <ListItemText primary={"Desktop Apps"} />
             </ListItem>
             <ListItem button key={'Login'} component={Link} to="/auth/login">
               <ListItemIcon><LockIcon /></ListItemIcon>
