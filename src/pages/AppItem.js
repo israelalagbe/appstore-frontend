@@ -13,7 +13,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-
+import Button from '@material-ui/core/Button';
 import Rating from 'material-ui-rating';
 
 class AppItem extends React.Component {
@@ -26,11 +26,11 @@ class AppItem extends React.Component {
 
   }
   render() {
-    const { classes, appImage, appTitle, appMaker, appRating, onPress,appId } = this.props;
+    const { classes, appImage, appTitle, appMaker, appRating, onPress, appId, authenticated, onDelete } = this.props;
     return (
 
       <Card className={classes.card}>
-        <CardActionArea onClick={()=>{
+        <CardActionArea onClick={() => {
           onPress(appId)
         }}>
           <CardMedia
@@ -41,11 +41,13 @@ class AppItem extends React.Component {
           <CardContent className={classes.cardContent}>
             <h4 style={{ margin: 0 }}>{appTitle}</h4>
             <p style={{ margin: 0, color: 'gray' }}>{appMaker}</p>
-             <Rating
+            <Rating
               value={appRating}
               max={5}
               readOnly
             />
+            <br />
+            {authenticated ? <Button style={{ color: 'red' }} onPress={() => onDelete(appId)} >Delete</Button> : null}
           </CardContent>
         </CardActionArea>
       </Card>

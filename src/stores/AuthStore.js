@@ -156,11 +156,12 @@ class AuthStore {
         let user = data.user;
         user.is_business = Number(user.is_business)
         user.is_customer = Number(user.is_customer)
-        this.authenticated = true
-        console.log("success logging in", user)
         await this.localStorage.setRaw('token', data.token);
-        await this.localStorage.set('user', user);
         this.setUser(user)
+        await this.localStorage.set('user', user);
+        this.setAuthenticated(true);
+        console.log("success logging in", user)
+ 
         this.localStorage.setRaw('username', this.username);
         this.setLoading(false)
     }

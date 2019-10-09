@@ -14,6 +14,7 @@ import { inject, observer } from 'mobx-react';
 import AppItem from './AppItem';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Fab from '@material-ui/core/Fab';
+import Button from '@material-ui/core/Button';
 import { reaction } from 'mobx';
 
 class Home extends Component {
@@ -43,7 +44,7 @@ class Home extends Component {
 
         }
         catch (e) {
-            console.log(e);
+            console.error("Fetching error: ", e);
             alert("Error occured while fetching apps ")
         }
     }
@@ -76,8 +77,12 @@ class Home extends Component {
                                     appRating={app.rating}
                                     appImage={app.image}
                                     appId={app.id}
+                                    authenticated={authStore.authenticated}
                                     onPress={(appId) => {
                                         history.push(`apps/${appId}`)
+                                    }}
+                                    onDelete={(id) => {
+                                        alert("Delete: " + id);
                                     }}
                                 />
                             </Grid>
